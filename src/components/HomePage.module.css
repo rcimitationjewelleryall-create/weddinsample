@@ -1,0 +1,214 @@
+/* ══════════════════════════════════════════════════
+   HomePage Styles
+   ══════════════════════════════════════════════════ */
+
+/* ── Find My Photos Section ── */
+.findSection {
+  background: var(--cream);
+  padding: 56px 24px 32px;
+  text-align: center;
+}
+
+/* ── Your Moments Section ── */
+.momentsSection {
+  background: var(--cream);
+  padding: 32px 24px 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Section header with ornamental lines */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.ornamentLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+.sectionLabel {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--royal-blue);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+/* ── Card Grid ── */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* ── Individual Event Card ── */
+.eventCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.32s cubic-bezier(0.25,0.1,0.25,1);
+  box-shadow: 0 2px 16px rgba(122,2,50,0.06);
+
+  /* Scroll reveal — starts hidden */
+  opacity: 0;
+  transform: translateY(28px);
+}
+.eventCard.revealed,
+.eventCard[data-card].revealed {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s cubic-bezier(0.25,0.1,0.25,1), transform 0.7s cubic-bezier(0.25,0.1,0.25,1), border-color 0.28s, box-shadow 0.28s;
+}
+
+.eventCard:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 36px rgba(122,2,50,0.16);
+  transform: translateY(-4px);
+}
+
+/* Corner accents */
+.cornerTL, .cornerBR {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+.cornerTL {
+  top: 8px;
+  left: 8px;
+  border-top: 1.5px solid var(--gold);
+  border-left: 1.5px solid var(--gold);
+}
+.cornerBR {
+  bottom: 8px;
+  right: 8px;
+  border-bottom: 1.5px solid var(--gold);
+  border-right: 1.5px solid var(--gold);
+}
+.eventCard:hover .cornerTL,
+.eventCard:hover .cornerBR {
+  opacity: 0.8;
+}
+
+/* Card image */
+.cardImgWrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 60%;
+  overflow: hidden;
+}
+.cardImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.eventCard:hover .cardImg {
+  transform: scale(1.05);
+}
+.cardImgPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  font-size: 48px;
+}
+.cardImgOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(58,1,24,0.5) 0%, transparent 60%);
+}
+
+/* Card text body */
+.cardBody {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.cardIcon {
+  font-size: 22px;
+  line-height: 1;
+}
+.cardName {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--royal-blue);
+  letter-spacing: 0.01em;
+}
+.cardCount {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gold-deep);
+  letter-spacing: 0.08em;
+}
+
+/* ── Thank You Section ── */
+.thankYouSection {
+  background: var(--cream);
+  padding: 80px 24px 100px;
+  text-align: center;
+  overflow: hidden;
+}
+.thankYouContent {
+  max-width: 600px;
+  margin: 0 auto;
+  animation: fadeUp 1s ease both;
+}
+.thankYouLabel {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 12px;
+}
+.thankYouText {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 600;
+  font-style: italic;
+  color: var(--royal-blue);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.thankYouDivider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 280px;
+  margin: 0 auto 20px;
+}
+.thankYouSub {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Responsive ── */
+@media (max-width: 500px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .momentsSection { padding: 24px 16px 48px; }
+}

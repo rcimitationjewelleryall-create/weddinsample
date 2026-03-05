@@ -1,0 +1,88 @@
+/* ══════════════════════════════════════════════════
+   DataCard — Reusable Sub-event Card
+   ══════════════════════════════════════════════════ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--cream);
+  /* border: 1.5px solid var(--border);
+  box-shadow: 0 2px 16px rgba(122,2,50,0.06);
+  transition: all 0.32s cubic-bezier(0.25,0.1,0.25,1); */
+
+  /* Fade-up entrance */
+  animation: cardReveal 0.7s cubic-bezier(0.25,0.1,0.25,1) both;
+}
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card:hover {
+  /* border-color: var(--gold);
+  box-shadow: 0 8px 36px rgba(122,2,50,0.16);
+  transform: translateY(-4px); */
+}
+
+/* ── Image ── */
+.imageWrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.card:hover .image {
+  transform: scale(1.04);
+}
+.placeholder {
+  width: 100%;
+  padding-bottom: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  font-size: 48px;
+  position: relative;
+}
+.placeholder span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ── Info ── */
+.info {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+.icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--royal-blue);
+  letter-spacing: 0.01em;
+}
+.count {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gold-deep);
+  letter-spacing: 0.08em;
+}

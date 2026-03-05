@@ -1,45 +1,154 @@
+import { useState, useEffect } from 'react';
 import styles from './Footer.module.css';
 
+/* ──── Night Palace Silhouette ──────────────────────────── */
+const NightPalace = () => (
+  <svg viewBox="0 0 1440 200" xmlns="http://www.w3.org/2000/svg" className={styles.nightPalace} preserveAspectRatio="xMidYMax slice">
+    <g fill="#F5EDD8" opacity="0.07">
+      <rect x="560" y="50" width="320" height="150" />
+      <ellipse cx="720" cy="50" rx="80" ry="65" />
+      <polygon points="720,0 730,50 710,50" />
+      <rect x="400" y="80" width="180" height="120" />
+      <ellipse cx="490" cy="80" rx="50" ry="42" />
+      <polygon points="490,38 497,80 483,80" />
+      <rect x="860" y="80" width="180" height="120" />
+      <ellipse cx="950" cy="80" rx="50" ry="42" />
+      <polygon points="950,38 957,80 943,80" />
+      <rect x="250" y="110" width="100" height="90" />
+      <ellipse cx="300" cy="110" rx="35" ry="30" />
+      <rect x="1090" y="110" width="100" height="90" />
+      <ellipse cx="1140" cy="110" rx="35" ry="30" />
+      <rect x="0" y="150" width="270" height="50" />
+      <rect x="1170" y="150" width="270" height="50" />
+      <rect x="0" y="185" width="1440" height="15" />
+    </g>
+    {/* Moonlight reflection */}
+    <ellipse cx="720" cy="196" rx="180" ry="8" fill="#C9A06A" opacity="0.08" />
+  </svg>
+);
+
+/* ──── Countdown Timer Hook ─────────────────────────────── */
+function calcTime(targetDate) {
+  const diff = new Date(targetDate).getTime() - Date.now();
+  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, past: true };
+  return {
+    days:    Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours:   Math.floor((diff / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((diff / (1000 * 60)) % 60),
+    seconds: Math.floor((diff / 1000) % 60),
+    past:    false,
+  };
+}
+
+function useCountdown(targetDate) {
+  const [time, setTime] = useState(() => calcTime(targetDate));
+  useEffect(() => {
+    const id = setInterval(() => setTime(calcTime(targetDate)), 1000);
+    return () => clearInterval(id);
+  }, [targetDate]);
+  return time;
+}
+
+/* ──── Timer Box ─────────────────────────────────────────── */
+function TimerBox({ value, label }) {
+  return (
+    <div className={styles.timerBox}>
+      <span className={styles.timerNum}>{String(value).padStart(2, '0')}</span>
+      <span className={styles.timerLabel}>{label}</span>
+    </div>
+  );
+}
+
+/* ──── Footer Component ──────────────────────────────────── */
 export default function Footer({ photographer, gallery }) {
-  const waNumber = (photographer.whatsapp || photographer.phone || '').replace(/\D/g, '');
-  const waLink = waNumber
-    ? `https://wa.me/${waNumber}?text=${encodeURIComponent(`Hi! I found you through the ${gallery.title} gallery. I'd love to book you!`)}`
-    : '#';
+  const eventDate = gallery?.event_date;
+  const time = useCountdown(eventDate || '2030-01-01');
+
+  const instagramHandle = photographer?.instagram?.replace('@', '');
+  const whatsapp = photographer?.whatsapp;
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.inner}>
-        <div className={styles.brand}>
-          <span className={`${styles.initial} serif`}>{photographer.name[0]}</span>
-          <div>
-            <p className={styles.name}>{photographer.name}</p>
+      {/* Stars */}
+      <div className={styles.stars}>
+        {[...Array(30)].map((_, i) => (
+          <div key={i} className={styles.star} style={{
+            left: `${(i * 41 + 7) % 100}%`,
+            top:  `${(i * 29 + 5) % 85}%`,
+            width:  `${(i % 3) + 1}px`,
+            height: `${(i % 3) + 1}px`,
+            animationDelay: `${(i * 0.31).toFixed(2)}s`,
+            animationDuration: `${2.5 + (i % 4) * 0.5}s`,
+          }} />
+        ))}
+      </div>
+
+      {/* Night palace silhouette */}
+      <NightPalace />
+
+      {/* Content */}
+      <div className={styles.content}>
+        {/* Title */}
+        <p className={styles.label}>
+          {time.past ? 'The celebration took place on' : 'Counting down to'}
+        </p>
+        <h2 className={styles.eventTitle}>
+          {gallery?.groom_name && gallery?.bride_name
+            ? `${gallery.groom_name} & ${gallery.bride_name}`
+            : gallery?.title || 'Wedding'}
+        </h2>
+        {eventDate && (
+          <p className={styles.eventDate}>
+            {new Date(eventDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+        )}
+
+        {/* Countdown */}
+        {!time.past && eventDate && (
+          <div className={styles.countdown}>
+            <TimerBox value={time.days}    label="Days" />
+            <span className={styles.colon}>:</span>
+            <TimerBox value={time.hours}   label="Hours" />
+            <span className={styles.colon}>:</span>
+            <TimerBox value={time.minutes} label="Minutes" />
+            <span className={styles.colon}>:</span>
+            <TimerBox value={time.seconds} label="Seconds" />
+          </div>
+        )}
+
+        {/* Divider */}
+        <div className={styles.divider} />
+
+        {/* Photographer info */}
+        <div className={styles.photographerInfo}>
+          <p className={styles.photographedBy}>
+            Photography by <span className={styles.photographerName}>{photographer?.name || 'Your Photographer'}</span>
+          </p>
+          {photographer?.tagline && (
             <p className={styles.tagline}>{photographer.tagline}</p>
+          )}
+
+          {/* Social / contact */}
+          <div className={styles.socials}>
+            {instagramHandle && (
+              <a href={`https://instagram.com/${instagramHandle}`} target="_blank" rel="noopener noreferrer" className={styles.socialBtn}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+                @{instagramHandle}
+              </a>
+            )}
+            {whatsapp && (
+              <a href={`https://wa.me/${whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className={styles.socialBtn}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                WhatsApp
+              </a>
+            )}
+            {photographer?.cta_text && (
+              <span className={styles.ctaText}>{photographer.cta_text}</span>
+            )}
           </div>
         </div>
 
-        <div className={styles.links}>
-          {photographer.instagram && (
-            <a href={photographer.instagram} target="_blank" rel="noreferrer" className={styles.socialLink}>Instagram</a>
-          )}
-          {photographer.facebook && (
-            <a href={photographer.facebook} target="_blank" rel="noreferrer" className={styles.socialLink}>Facebook</a>
-          )}
-          {photographer.phone && (
-            <a href={`tel:${photographer.phone}`} className={styles.socialLink}>
-              📞 {photographer.phone}
-            </a>
-          )}
-        </div>
-
-        <a href={waLink} target="_blank" rel="noreferrer" className={styles.ctaBtn}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967c-.273-.099-.471-.148-.67.15c-.197.297-.767.966-.94 1.164c-.173.199-.347.223-.644.075c-.297-.15-1.255-.463-2.39-1.475c-.883-.788-1.48-1.761-1.653-2.059c-.173-.297-.018-.458.13-.606c.134-.133.298-.347.446-.52c.149-.174.198-.298.298-.497c.099-.198.05-.371-.025-.52c-.075-.149-.669-1.612-.916-2.207c-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372c-.272.297-1.04 1.016-1.04 2.479c0 1.462 1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487c.709.306 1.262.489 1.694.625c.712.227 1.36.195 1.871.118c.571-.085 1.758-.719 2.006-1.413c.248-.694.248-1.289.173-1.413c-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214l-3.741.982l.998-3.648l-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884c2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-          </svg>
-          {photographer.cta_text || 'Hire Us'}
-        </a>
-      </div>
-      <div className={styles.copy}>
-        <p>© {new Date().getFullYear()} {photographer.name} · Gallery by YieldOps</p>
+        <p className={styles.copy}>© {new Date().getFullYear()} {photographer?.name} · All rights reserved</p>
       </div>
     </footer>
   );

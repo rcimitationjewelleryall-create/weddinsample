@@ -1,38 +1,41 @@
 import styles from './EventTabs.module.css';
 
 export default function EventTabs({ sections, activeSection, onSelect }) {
-  if (!sections || sections.length === 0) return null;
+  if (!sections || sections.length <= 1) return null;
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.track}>
-        {/* "All" tab */}
+    <section className={styles.sectionWrap}>
+      <div className={styles.header}>
+        <div className={styles.ornamentLine} />
+        <span className={styles.headerLabel}>Browse by Event</span>
+        <div className={styles.ornamentLine} />
+      </div>
+
+      <div className={styles.cardStrip}>
+        {/* "All" card */}
         <button
-          className={`${styles.tab} ${!activeSection ? styles.active : ''}`}
+          className={`${styles.card} ${!activeSection ? styles.active : ''}`}
           onClick={() => onSelect(null)}
         >
-          <span className={styles.icon}>🎞</span>
-          <span>All Events</span>
-          <span className={styles.badge}>
-            {sections.reduce((s, sec) => s + sec.photo_count, 0)}
+          <span className={styles.cardIcon}>✦</span>
+          <span className={styles.cardName}>All Events</span>
+          <span className={styles.cardCount}>
+            {sections.reduce((s, x) => s + (x.photo_count ?? 0), 0)}
           </span>
         </button>
 
-        {sections.map((sec) => (
+        {sections.map(sec => (
           <button
             key={sec.id}
-            className={`${styles.tab} ${activeSection === sec.id ? styles.active : ''}`}
-            onClick={() => onSelect(sec.id)}
+            className={`${styles.card} ${activeSection === sec.id ? styles.active : ''}`}
+            onClick={() => onSelect(activeSection === sec.id ? null : sec.id)}
           >
-            <span className={styles.icon}>{sec.icon}</span>
-            <span>{sec.label}</span>
-            {sec.time_start && (
-              <span className={styles.time}>{sec.time_start}–{sec.time_end}</span>
-            )}
-            <span className={styles.badge}>{sec.photo_count}</span>
+            <span className={styles.cardIcon}>{sec.icon || '📷'}</span>
+            <span className={styles.cardName}>{sec.label}</span>
+            <span className={styles.cardCount}>{sec.photo_count ?? 0}</span>
           </button>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

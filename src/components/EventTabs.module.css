@@ -1,53 +1,122 @@
-.wrapper {
+/* ── Event Tabs — Royal Card Strip ── */
+.sectionWrap {
+  padding: 40px 32px 0;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 32px 28px;
 }
-.track {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-}
-.track::-webkit-scrollbar { display: none; }
 
-.tab {
+.header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 20px;
-  border-radius: 100px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--muted);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.ornamentLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.5;
+}
+.headerLabel {
+  font-family: 'Cormorant Garamond', serif;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
   white-space: nowrap;
-  flex-shrink: 0;
-  transition: all var(--transition);
 }
-.tab:hover {
-  border-color: rgba(201,160,106,0.45);
-  color: var(--heading);
+
+/* Card strip */
+.cardStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
-.tab.active {
-  background: var(--gold-dim);
-  border-color: var(--gold);
-  color: var(--gold-deep);
-}
-.icon  { font-size: 15px; }
-.time  { font-size: 11px; opacity: 0.55; }
-.badge {
-  background: var(--surface2);
+
+/* Individual oval card */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 18px 28px;
+  min-width: 120px;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
   border-radius: 100px;
-  padding: 1px 8px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.28s ease;
+  box-shadow: 0 2px 12px rgba(122,2,50,0.06);
 }
-.tab.active .badge {
-  background: rgba(201,160,106,0.18);
+/* Floral corner accent (top-right) via pseudo-element */
+.card::before {
+  content: '✿';
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-size: 8px;
+  color: var(--gold);
+  opacity: 0.4;
+  line-height: 1;
+}
+.card::after {
+  content: '✿';
+  position: absolute;
+  bottom: 6px;
+  left: 10px;
+  font-size: 8px;
+  color: var(--gold);
+  opacity: 0.4;
+  line-height: 1;
+}
+
+.card:hover {
+  border-color: var(--gold);
+  background: #FBF4E8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(201,160,106,0.2);
+}
+
+.card.active {
+  background: var(--royal-blue);
+  border-color: var(--royal-blue);
+  box-shadow: 0 6px 24px rgba(122,2,50,0.28);
+}
+.card.active .cardIcon,
+.card.active .cardName,
+.card.active .cardCount {
+  color: var(--cream);
+}
+.card.active::before,
+.card.active::after {
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.cardIcon {
+  font-size: 18px;
+  line-height: 1;
+}
+.cardName {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--royal-blue);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.cardCount {
+  font-size: 11px;
+  font-weight: 500;
   color: var(--gold-deep);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 500px) {
+  .sectionWrap { padding: 32px 16px 0; }
+  .card { min-width: 100px; padding: 14px 20px; }
 }

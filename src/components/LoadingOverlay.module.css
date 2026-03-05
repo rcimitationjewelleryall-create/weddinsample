@@ -1,0 +1,57 @@
+/* ── Full-screen loading overlay ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Block all interactions underneath */
+  pointer-events: all;
+  cursor: wait;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Spinner ring */
+.spinner {
+  width: 56px;
+  height: 56px;
+  border: 3px solid rgba(255,255,255,0.12);
+  border-top-color: #C9A06A;
+  border-radius: 50%;
+  animation: spin 0.85s linear infinite;
+}
+
+.text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 600;
+  font-style: italic;
+  color: #F5EDD8;
+  letter-spacing: 0.02em;
+}
+
+.subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(245,237,216,0.5);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

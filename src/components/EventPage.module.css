@@ -1,0 +1,95 @@
+/* ══════════════════════════════════════════════════
+   EventPage Styles
+   ══════════════════════════════════════════════════ */
+
+/* ── Sticky Header ── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+}
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 24px;
+}
+
+/* Back button — royal style */
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--royal-blue);
+  border: 1.5px solid rgba(201,160,106,0.4);
+  border-radius: 100px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--cream);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.25,0.1,0.25,1);
+  box-shadow: 0 2px 12px rgba(122,2,50,0.18);
+  min-width: auto;
+}
+.backBtn svg {
+  stroke: var(--gold);
+  transition: transform 0.22s;
+}
+.backBtn:hover {
+  background: #9a0340;
+  border-color: var(--gold);
+  box-shadow: 0 6px 24px rgba(122,2,50,0.3);
+  transform: translateY(-2px);
+}
+.backBtn:hover svg {
+  transform: translateX(-3px);
+}
+
+/* Centre title */
+.headerCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.headerLabel {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+.headerTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-weight: 600;
+  color: var(--royal-blue);
+  letter-spacing: 0.01em;
+}
+
+/* Ornamental line */
+.headerLine {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0.35;
+}
+
+/* ── Main ── */
+.main {
+  background: var(--cream);
+  min-height: 60vh;
+  padding-bottom: 32px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .headerInner { padding: 12px 16px; }
+  .backBtn { padding: 6px 12px; font-size: 12px; min-width: 56px; }
+}

@@ -61,7 +61,7 @@ async function extractEmbedding(file) {
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export default function SelfieFilter({ allPhotos, onResult, isActive, matchCount }) {
+export default function SelfieFilter({ allPhotos, onResult, onLoadingChange, isActive, matchCount }) {
   const [phase,    setPhase]    = useState('idle'); // idle|loading|done|error
   const [errorMsg, setErrorMsg] = useState('');
   const [preview,  setPreview]  = useState(null);
@@ -75,6 +75,7 @@ export default function SelfieFilter({ allPhotos, onResult, isActive, matchCount
     setPreview(objUrl);
     setPhase('loading');
     setErrorMsg('');
+    onLoadingChange?.(true);
 
     try {
       // 1. Get ArcFace embedding for the selfie via local API
@@ -87,6 +88,7 @@ export default function SelfieFilter({ allPhotos, onResult, isActive, matchCount
 
       setPhase('done');
       onResult(matched);
+      onLoadingChange?.(false);
     } catch (err) {
       setPhase('error');
       // Give the user a helpful message if the API is not running
@@ -97,6 +99,7 @@ export default function SelfieFilter({ allPhotos, onResult, isActive, matchCount
           : err.message || 'Something went wrong.'
       );
       onResult(null);
+      onLoadingChange?.(false);
     }
   };
 

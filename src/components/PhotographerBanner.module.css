@@ -1,271 +1,179 @@
-/* ═══════════════════════════════════════════════════════════
-   MUGHAL BANNER MODULE — warm ivory / gold palette
-   ═══════════════════════════════════════════════════════════ */
+/* Cinzel — elegant display serif, similar look to Arcadian */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&display=swap');
 
-/* ── NAVBAR ─────────────────────────────────────────────── */
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  padding: 14px 32px;
-  background: rgba(250,245,238,0.82);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(201,160,106,0.22);
-  transition: opacity 0.3s ease;
-}
-.navInner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.brand { display: flex; align-items: center; gap: 12px; }
-.logo  { height: 34px; width: 34px; border-radius: 50%; object-fit: cover; }
-.logoInitial {
-  width: 34px; height: 34px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: rgba(201,160,106,0.12);
-  border: 1px solid var(--gold);
-  color: var(--gold-deep);
-  font-size: 17px;
-}
-.brandName {
-  font-weight: 500;
-  font-size: 15px;
-  letter-spacing: 0.03em;
-  color: var(--heading);
-}
-.navLinks { display: flex; align-items: center; gap: 16px; }
-.socialLink {
-  color: var(--muted);
-  display: flex; align-items: center;
-  transition: color var(--transition);
-}
-.socialLink:hover { color: var(--gold-deep); }
-.ctaBtn {
-  display: flex; align-items: center; gap: 8px;
-  padding: 8px 20px;
-  background: var(--gold-deep);
-  color: #FAF5EE;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  border-radius: 100px;
-  transition: all 0.22s;
-}
-.ctaBtn:hover { opacity: 0.88; transform: scale(1.04); }
+/* ── Hero — Deep crimson damask + centered serif layout ── */
 
-/* ── HERO ────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-/* ── BG LAYER — warm paper/marble ──────────────────────── */
-.layerBg {
-  position: absolute;
-  inset: -25% 0;
-  z-index: 0;
-  will-change: transform;
-  background:
-    /* Subtle blush vignette top-left & bottom-right */
-    radial-gradient(ellipse 60% 45% at 15% 20%, rgba(201,160,106,0.09) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 40% at 85% 75%, rgba(201,160,106,0.07) 0%, transparent 50%),
-    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(122,30,46,0.03) 0%, transparent 55%),
-    /* Base warm ivory */
-    linear-gradient(170deg, #FDF8F2 0%, #FAF5EE 40%, #F5EBE0 100%);
-}
-
-/* ── MUGHAL ARCH FRAME ──────────────────────────────────── */
-.archWrap {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  z-index: 2;
-  will-change: transform;
-}
-.mughalFrame {
-  /* Fills height of hero, centered */
-  height: min(92vh, 760px);
-  width: auto;
-  max-width: 90vw;
-  filter: drop-shadow(0 2px 12px rgba(201,160,106,0.12));
-}
-
-/* ── MAIN TEXT CONTENT ──────────────────────────────────── */
-.content {
-  position: relative;
-  z-index: 5;
-  text-align: center;
-  padding: 110px 24px 280px;
-  max-width: 660px;
-  will-change: transform;
-  animation: fadeUp 0.8s ease both;
-}
-
-/* Flourish decorative row */
-.flourish {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 18px;
-}
-.line {
-  flex: 1;
-  max-width: 80px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--gold) 60%, transparent);
-  opacity: 0.6;
-}
-.diamond { color: var(--gold); font-size: 10px; opacity: 0.7; letter-spacing: 3px; }
-.lotus   { color: var(--gold-deep); font-size: 14px; opacity: 0.6; }
-
-/* "Photographer Presents" */
-.presents {
-  font-size: clamp(10px, 1.2vw, 13px);
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-.presentsStudio {
-  color: var(--gold-deep);
-  font-weight: 600;
-}
-
-/* Couple names */
-.coupleNames {
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-  line-height: 1;
-  margin-bottom: 20px;
-}
-.groom, .bride {
-  font-size: clamp(3.5rem, 8.5vw, 7rem);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: var(--heading);
-}
-.groom {
-  /* subtle gradient from deep maroon to warm brown */
-  background: linear-gradient(135deg, #2A1A10 30%, #7A1E2E 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.bride {
-  background: linear-gradient(135deg, #7A1E2E 0%, #C9A06A 70%, #8B6B47 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.weds {
-  font-size: clamp(1.1rem, 2.8vw, 1.9rem);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold-deep);
-  letter-spacing: 0.14em;
-  padding: 6px 0 4px;
-  opacity: 0.8;
+  justify-content: center;
+  overflow: hidden;
+  /* Use the uploaded damask background image */
+  background: #800030 url('/hero-bg.png') center center / cover no-repeat;
 }
 
-/* Event info */
-.eventName {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
-  font-style: italic;
-  font-weight: 300;
-  color: var(--gold-deep);
-  letter-spacing: 0.06em;
-  margin-top: 18px;
-  margin-bottom: 6px;
-}
-.eventDate {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 38px;
+/* ── Damask / floral mandala background pattern ── */
+.damaskLayer {
+  /* Hidden — background image is on .hero directly */
+  display: none;
 }
 
-/* CTA buttons */
-.ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-.primaryBtn {
-  display: flex; align-items: center; gap: 9px;
-  padding: 13px 30px;
-  background: linear-gradient(135deg, #7A1E2E 0%, #C9A06A 100%);
-  color: #FAF5EE;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.07em;
-  border-radius: 100px;
-  border: none; cursor: pointer;
-  transition: all 0.28s ease;
-  box-shadow: 0 4px 20px rgba(122,30,46,0.2), 0 1px 4px rgba(122,30,46,0.1);
-  text-decoration: none;
-}
-.primaryBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(122,30,46,0.28);
-}
-.secondaryBtn {
-  padding: 13px 30px;
-  background: transparent;
-  color: var(--gold-deep);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.07em;
-  border-radius: 100px;
-  border: 1.5px solid rgba(201,160,106,0.45);
-  cursor: pointer;
-  transition: all 0.28s;
-}
-.secondaryBtn:hover {
-  border-color: var(--gold);
-  background: rgba(201,160,106,0.07);
-  transform: translateY(-2px);
-}
-
-/* ── PAVILION SCENE ─────────────────────────────────────── */
-.sceneWrap {
+/* ── Soft radial vignette (darker edges) ── */
+.vignette {
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  z-index: 4;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 40%, rgba(80,0,20,0.55) 100%);
   pointer-events: none;
-  will-change: transform;
-}
-.pavilionScene {
-  width: 100%;
-  height: auto;
-  max-height: 230px;
-  display: block;
-  /* Very gentle fade-in at top so scene blends into background */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.5) 15%, black 35%);
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .navbar   { padding: 12px 18px; }
-  .ctaBtn   { display: none; }
-  .content  { padding: 100px 20px 220px; }
-  .mughalFrame { height: min(88vh, 640px); }
+/* ── Centre content stack ── */
+.center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 48px 24px 80px;
+  text-align: center;
+  width: 100%;
+  max-width: 580px;
 }
+
+/* ── Ganesh icon ── */
+.ganeshWrap {
+  margin-bottom: 12px;
+}
+.ganeshIcon {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 12px rgba(245,220,180,0.3));
+}
+.sanskritText {
+  font-family: 'Noto Serif Devanagari', 'Cormorant Garamond', serif;
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #d3a100;
+  text-shadow: 0 0 16px rgba(211,161,0,0.4);
+  margin: 0;
+}
+
+/* ── Lines image (above & below names) ── */
+.linesImg {
+  width: 100%;
+  max-width: 320px;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+.linesFlip {
+  transform: scaleY(-1);
+}
+
+/* ── Groom name ── */
+.groomName {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 9vw, 92px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  line-height: 1.0;
+  margin: 2px 0;
+  text-shadow: 0 2px 24px rgba(80,0,20,0.4);
+}
+
+/* ── "weds" cursive script ── */
+.wedsScript {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.06em;
+  margin: -6px 0;
+}
+
+/* ── Bride name ── */
+.brideName {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 9vw, 92px);
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  line-height: 1.0;
+  margin: 2px 0;
+  text-shadow: 0 2px 24px rgba(80,0,20,0.4);
+}
+
+/* ── Date ── */
+.dateText {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  color: rgba(255,255,255,0.65);
+  margin: 4px 0;
+}
+
+/* ── Photographer line ── */
+.photographerLine {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.35);
+  margin-top: 8px;
+}
+.photographerLine strong {
+  color: rgba(201,160,106,0.8);
+  font-weight: 400;
+}
+
+/* ── Scroll down button ── */
+.scrollDown {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.3s, transform 0.3s;
+}
+.scrollDown:hover {
+  color: rgba(255,255,255,0.9);
+  transform: translateX(-50%) translateY(3px);
+}
+.scrollArrow {
+  font-size: 16px;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* ── Responsive ── */
 @media (max-width: 480px) {
-  .groom, .bride { font-size: 3rem; }
-  .pavilionScene { max-height: 160px; }
-  .line { max-width: 40px; }
+  .center { padding-bottom: 100px; }
+  .ganeshIcon { width: 56px; height: 64px; }
 }
