@@ -5,13 +5,22 @@ export default function Lightbox({ photo, photos, onClose, onNav }) {
   const currentIndex = photos.findIndex(p => p.id === photo.id);
 
   const [slideDir, setSlideDir] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const goPrev = useCallback(() => {
-    if (currentIndex > 0) { setSlideDir('right'); onNav(photos[currentIndex - 1]); }
+    if (currentIndex > 0) { 
+      setSlideDir('right'); 
+      setIsLoading(true);
+      onNav(photos[currentIndex - 1]); 
+    }
   }, [currentIndex, photos, onNav]);
 
   const goNext = useCallback(() => {
-    if (currentIndex < photos.length - 1) { setSlideDir('left'); onNav(photos[currentIndex + 1]); }
+    if (currentIndex < photos.length - 1) { 
+      setSlideDir('left'); 
+      setIsLoading(true);
+      onNav(photos[currentIndex + 1]); 
+    }
   }, [currentIndex, photos, onNav]);
 
   useEffect(() => {
@@ -60,7 +69,7 @@ export default function Lightbox({ photo, photos, onClose, onNav }) {
         </button>
       )}
 
-      {/* Image */}
+      {/* Image Container */}
       <div
         key={photo.id}
         className={`${styles.imgWrap} ${slideDir === 'left' ? styles.slideLeft : slideDir === 'right' ? styles.slideRight : ''}`}
@@ -68,11 +77,13 @@ export default function Lightbox({ photo, photos, onClose, onNav }) {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+        {isLoading && <div className={styles.loader}></div>}
         <img
           src={photo.thumbnail_url.replace('=s400', '=s1600')}
           alt={photo.file_name}
-          className={styles.img}
+          className={`${styles.img} ${isLoading ? styles.imgHidden : ''}`}
           referrerPolicy="no-referrer"
+          onLoad={() => setIsLoading(false)}
         />
       </div>
 

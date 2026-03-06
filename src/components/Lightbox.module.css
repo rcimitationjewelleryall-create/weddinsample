@@ -71,6 +71,26 @@
   max-height: calc(100vh - 130px);
   object-fit: contain;
   border-radius: var(--radius);
+  transition: opacity 0.3s ease;
+}
+
+.imgHidden {
+  opacity: 0;
+}
+
+.loader {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 248, 231, 0.2);
+  border-top-color: #C9A06A;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .bar {
